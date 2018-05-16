@@ -1,4 +1,3 @@
 # register
-user register hahaha
-
+user register haha
 
