@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>登录</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+	<meta http-equiv="Expires" content="0">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes">
+	<script src="js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="css/resite.css" />
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+</head>
+
+
+<body>
+
+	<div class="error" id="error_notice" style="display: none;">
+		<div class="error_txt" id="error_txt">错误</div>
+	</div>
+	<div class="alert_mask" id="imgCode_mask">
+		<div class="imgCode_box">
+			<h3>为保证登录安全，请输入图片验证码</h3>
+			<img src="" class="imgCode" />
+			<input type="text" name="" id="image_code" value="" placeholder="请输入图片验证码" />
+			<a class="login_btn" id="confir_imgCode">确定</a>
+		</div>
+		<a href="#" class="cancel_imgCode"></a>
+	</div>
+	<div class="mainbody loginbody">
+		<div class="loginMask">
+			<div class="login_box">
+				<div>
+					<input type="hidden" id="redirect" value="${redirect}" />
+					<input type="number" value='' id="user_phonenum" placeholder="请输入手机号" maxlength="11" />
+				</div>
+				<div style="display:none;position:relative" id="phone_code">
+					<input type="text" id="code" maxlength="8" placeholder="请输入验证码" />
+					<a id="clockNum" class="clockNum active">重发</a>
+					<!--<em>60</em>s-->
+				</div>
+				<div style="-display:none;" id="code_btn">
+					<a href="#">点击获取验证码</a>
+				</div>
+			</div>
+			<a class="login_btn" id="login_btn">进入「契机」</a>
+			<p class="finder_rules finder_rules_on">注册即表示已阅读并同意
+				<a href="http://39.106.1.149/appPage/doc/regist_protocol.html">《注册与服务协议》</a>
+			</p>
+			<!--<a href="网址" class="code_wrong">收不到验证码？</a>-->
+		</div>
+	</div>
+	<script type="text/javascript">
+		var clientH = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
+			timerOut = '', i = 60;
+		var $phonenum = $('#user_phonenum'), $code = $('#code'), $imgcode = $('#image_code'), $imgMask = $('#imgCode_mask'), $clockNum = $('#clockNum'),
+			$codeBtn = $('#code_btn'), $phoneCode = $('#phone_code');
+		$('.mainbody').height(clientH);
+		$('#code_btn').on('touchend', function (ev) {
+			//弹出图片验证码
+			ev.stopPropagation();
+			getImgCode();
+			getImgText($imgMask);
+			$imgcode[0].focus();
+		});
+		$('#confir_imgCode').on('touchend', function (ev) {
+			//图片验证码提交操作
+			ev.stopPropagation();
+			if ($imgcode.val() != '') {
+
+				$.ajax({
+					type: "post",
+					headers: {
+						"Content-Type": "application/json; charset=utf-8"
+					},
+					url: 'http://192.168.10.107:8081/web/users/sendH5SmsCode',
+					// url: 'http://tishoy.com/web/users/sendH5SmsCode',
+					data: JSON.stringify({ 'mobile': $phonenum.val() + "", 'imgCode': $imgcode.val() + "", "imgKey": window.imageKey }),
+					dataType: 'text',
+					success: function (data) {
+						var json = JSON.parse(data)
+						if (json.code == '1') {
+							window.smsKey = json.data.smsKey;
+							//验证通过
+							$phoneCode.css('display', 'block');
+							$codeBtn.css('display', 'block');
+							$imgMask.css('display', 'none');
+							$clockNum.off('click');
+							$clockNum.removeClass('active');
+							$clockNum.html('<em>' + i + '</em>s');
+							timerOut = setInterval(function () {
+								i--;
+								$clockNum.html('<em>' + i + '</em>s');
+								if (i == 0) {
+									$clockNum.on('click', function () { getImgText($imgMask) });
+									$clockNum.addClass('active');
+									$clockNum.html('重发');
+									clearInterval(timerOut);
+									i = 60;
+									getImgCode();
+								}
+							}, 1000);
+						} else if (json.code == '0' && json.data.smsKey == '-100') {
+							getErrorText('您的手机号已注册');
+						} else {
+							//验证不通过 吐词
+							getErrorText('验证失败');
+							getImgCode();
+						}
+					}
+				});
+			} else {
+				getErrorText('图片验证码不能为空');
+			}
+		});
+		$('#login_btn').on('touchend', function () {
+			var $redirect = $('#redirect').val();
+			if ($phonenum.val() != '' && $code.val() != '') {
+				if ($('.finder_rules').hasClass('finder_rules_on') == true) {
+					//登录验证操作
+					$.ajax({
+						type: "post",
+						headers: {
+							"Content-Type": "application/json; charset=utf-8"
+						},
+						url: 'http://192.168.10.107:8081/web/users/register',
+						// url: 'http://tishoy.com/web/users/register',
+						data: JSON.stringify({ 'mobile': $phonenum.val(), 'code': $code.val(), 'codeKey': window.smsKey, "channel": "3" }),
+						dataType: 'text',
+						success: function (data) {
+							var json = JSON.parse(data)
+							if (json.code == '1') {
+								//通过登录验证
+								var u = navigator.userAgent;
+								var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+								var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+								// alert('是否是Android：' + isAndroid);
+								// alert('是否是iOS：' + isiOS);
+
+								if (isiOS) {
+									window.location.href = 'itms-services://?action=download-manifest&url=https://www.pgyer.com/app/plist/842a9e653923e7c7d4c5796336be897b/install/s.plist';
+								}
+								if (isAndroid) {
+									window.location.href = 'http://39.106.1.149/download/qiji.apk';
+								}
+
+							} else {
+								//登录验证失败
+								getErrorText('登录失败');
+							}
+						}
+					});
+				} else {
+					getErrorText('请查看并同意协议规则');
+				}
+			} else {
+				getErrorText('验证码或手机不能为空');
+			}
+		});
+		$('.imgCode').on('touchend', function (ev) {
+			ev.stopPropagation();
+			getImgCode()
+		});
+		$('.cancel_imgCode').on('touchend', function (ev) {
+			ev.stopPropagation();
+			$('#image_code').val('');
+			$('#imgCode_mask').css('display', 'none');
+		});
+		$('.finder_rules').on('touchend', function () {
+			if ($(this).hasClass('finder_rules_on') == true) {
+				$(this).removeClass('finder_rules_on')
+			} else {
+				$(this).addClass('finder_rules_on')
+			}
+		});
+		function getImgCode() {
+			//刷新更换图片验证码操作
+			$.ajax({
+				type: "post",
+				url: 'http://192.168.10.107:8081/web/users/randomImage',
+				// url: 'http://tishoy.com/web/users/randomImage',
+				// data: { 'phonenum': $phonenum.val(), 'image_code': $imgcode.val() },
+				dataType: 'json',
+				success: function (json) {
+					if (json.code == '1') {
+						window.imageKey = json.data.imgSessionId;
+						//验证通过
+						// $phoneCode.css('display', 'block');
+						// $codeBtn.css('display', 'block');
+						// $imgMask.css('display', 'none');
+						// $clockNum.off('click');
+						// $clockNum.removeClass('active');
+						// $clockNum.html('<em>' + i + '</em>s');
+						// timerOut = setInterval(function () {
+						// 	i--;
+						// 	$clockNum.html('<em>' + i + '</em>s');
+						// 	if (i == 0) {
+						// 		$clockNum.on('click', function () { getImgText($imgMask) });
+						// 		$clockNum.addClass('active');
+						// 		$clockNum.html('重发');
+						// 		clearInterval(timerOut);
+						// 		i = 60;
+						// 		getImgCode();
+						// 	}
+						// }, 1000);
+						$('.imgCode').attr('src', 'data:image/jpeg;base64,' + json.data.imgBase64);
+						$imgcode.val('');
+					} else {
+						//验证不通过 吐词
+						getErrorText('验证失败');
+						getImgCode();
+					}
+				}
+			});
+
+
+		};
+	</script>
+
+</html>

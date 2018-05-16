@@ -1,0 +1,68 @@
+html,body{background:#f4f4f4;position:relative;}
+.mainbody{position:relative;width:100%;height:100%;overflow:hidden;font-size:0.28rem;z-index:10;}
+.down_footer{width:100%;height:1.50rem;background: rgba(0,0,0,0.5);position:absolute;bottom:0;left:0;color:#fff;font-size:0.32rem;}
+.icon{width:1.16rem;height:1.16rem;float:left;margin:0.20rem 0.20rem 0;}
+.slogan_text{float:left;}
+.slogan_text p:nth-of-type(1){margin:0.28rem 0 0.08rem;font-weight: bold;}
+.slogan_text p:nth-of-type(2){font-size:0.28rem;}
+.down_url{font-size:0.28rem;float:right;margin:0.45rem 0.18rem 0 0;display:block;width:1.84rem;height:0.76rem;background:url(../images/btn_open_n@2x.png) no-repeat center;background-size:100%;line-height:0.70rem;color:#fff;text-align: center;}
+/*index*/
+.user_info{width:100%;height:2.16rem;background:#fff;margin-bottom:0.20rem;overflow:hidden;}
+.user_left{width:100%;height:2.38rem;background:#fff;margin-bottom:3.92rem;overflow:hidden;}
+.withdraw_Btn{margin:auto;display: block;width:7.18rem;height:1.2rem;background:url(../images/btn_01_n@2x.png) no-repeat center;background-size:100%;color:#fff;font-size:0.32rem;text-align:center;line-height:1.18rem;position: absolute;left: 0;right: 0;bottom: 2.2rem;}
+.user_portrait{width:1.6rem;height:1.6rem;margin:0.28rem 0.28rem 0 ;display:block;float:left;}
+.user_info p{width:100%;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;color:#666;font-size:0.28rem;}
+.user_info p:nth-of-type(1){margin-top:0.28rem;color:#333;font-weight:bold;}
+.user_info p:nth-of-type(2){margin:0.20rem 0;}
+.user_left p{text-align: center;height:0.9rem;line-height:0.9rem;font-size:0.28rem;color:#333;width:6.94rem;margin:0 auto;border-bottom:0.01rem solid #ddd;}
+.left_corn{text-align:center;line-height:1.47rem;height:1.47rem;color:#FFD200;font-size:0.28rem;}
+.left_corn span{font-size:0.56rem;}
+.change_user{display:block;width:100%;text-align:center;color:#BBB;font-size:0.24rem;line-height:0.5rem}
+
+/*result*/
+.result_body{width:100%;overflow:hidden;}
+.result_body img{height:1.6rem;width:1.6rem;display:block;margin:1.8rem auto 0.8rem;}
+.result_body h3{color:#333;font-size:0.32rem;text-align: center;width:100%;margin-bottom:0.28rem;}
+.result_body p{color:#bbb;font-size:0.28rem;text-align: center;width:100%;margin-bottom:3.4rem;}
+
+/*withdraw*/
+.left_notice{font-size:0.28rem;text-align:center;width:100%;height:1.86rem;margin-bottom:0.20rem;background:#fff;line-height:1.86rem;}
+.left_notice em,span{color:#FFD200;}
+.left_notice span{font-size:0.48rem;}
+.withdraw_box{background:#fff;width:100%;height:auto;overflow:hidden;}
+.withdraw_ul{width:100%;height:auto;overflow:hidden;margin-bottom:0.40rem;}
+.withdraw_ul li{position:relative;color:#333;font-size:0.32rem;line-height:1rem;height:1rem;margin-left:0.28rem;border-bottom:0.01rem #ddd solid;width:100%;box-sizing:border-box;background:url(../images/icon_gold@2x.png) no-repeat left center;background-size:0.36rem 0.36rem;}
+.withdraw_ul li .withdraw_corn{color:#333;margin-left:0.56rem;}
+.withdraw_ul li .withdraw_btn{color:#fff;font-size:0.28rem;display:block;position:absolute;margin:auto;top:0;bottom:0;right:0.5rem;height:0.6rem;width:1.5rem;text-align: center;line-height:0.6rem;background: url(../images/btn_02@2x.png) no-repeat center;background-size:100% 100%;}
+.withdraw_tip{color:#999;font-size:0.28rem;width:6.94rem;margin:0 auto;}
+.withdraw_tip p{margin-bottom:0.20rem;}
+.alert_box{background:#fff;border-radius:0.20rem;width:5rem;height:2.52rem;margin:4rem auto 0;position:relative;font-size:0.32rem;color:#333;overflow:hidden;}
+.alert_box h3{text-align:center;line-height:1.6rem;}
+.alert_btn{height:0.88rem;border-top:0.01rem solid #ddd;border-radius:0 0 0.20rem 0.20rem;overflow:hidden;position:absolute;bottom:0;left:0;width:100%;}
+.alert_btn a{display:block;float:left;width:50%;height:0.88rem;line-height:0.94rem;text-align: center;}
+.alert_btn a.confir_withdraw{background:-webkit-linear-gradient(30deg,#30BC8B , #30BCA7);color:#fff;}
+
+
+/*login*/
+.loginbody{position:relative;text-align: center;width:100%;height:100%;background:url(../images/bg_login@2x.png) no-repeat top left;background-size:100% 100%;overflow:hidden;font-size:0.24rem;color:#333;}
+.login_box{width:5.5rem;height:1.92rem;box-shadow: 0 0.04rem 0.12rem 0 rgba(0,0,0,0.30);background:#fff;border-radius:0.20rem;font-size:0.32rem;margin:4.0rem auto 0.4rem;overflow:hidden;}
+.login_box div{height:0.96rem;width:100%;}
+.login_box div:nth-of-type(1){border-bottom:0.01rem solid #ddd;}
+.login_box div input{border:none;border:0;width:100%;text-align: center;height:0.96rem;outline:none;}
+.login_box a.clockNum{position:absolute;display: block;padding:0 0.4rem;height:0.96rem;line-height:0.96rem;color:#bbb;font-size:0.3rem;right:0;bottom:0;}
+.login_box a.active{color:#FFC439;}
+.login_box div#code_btn a{text-align: center;line-height:0.96rem;color:#FFC439;font-size:0.32rem;display: block;}
+.login_btn{display:block;width:5.74rem;height:1.2rem;font-size:0.32rem;text-align: center;line-height:1.15rem;background: url(../images/btn_03@2x.png) no-repeat center;background-size:100% 100%;color:#fff;margin:0 auto 0.4rem;border:none;}
+/*.finder_rules{width:4.3rem;margin:0 auto;height:0.4rem;font-size:0.28rem;padding-left:0.48rem;line-height:0.4rem;background:url(../images/icon_select_n@2x.png) no-repeat left center;background-size:0.36rem 0.36rem;}*/
+/*.finder_rules_on{background:url(../images/icon_select_s@2x.png) no-repeat left center;background-size:0.36rem 0.36rem;}*/
+.finder_rules a{color:#FFC439;}
+.code_wrong{display: block;position:absolute;bottom:1.44rem;left:0;right:0;margin:auto;text-align: center;width:3.4rem;color:#fff;font-size:0.26rem;}
+
+.loginMask{width:100%;height:100%;position:absolute;top:0;left:0;z-index:9999;}
+.imgCode_box{width:5.6rem;height:4.76rem;font-size:0.3rem;border-radius:0.20rem;background:#fff;margin:2.28rem auto 0;overflow:hidden;}
+.imgCode_box h3{font-size:0.3rem;text-align: center;width:100%;margin:0.5rem auto 0.3rem;color:#333;}
+.imgCode{display: block;width:2.36rem;height:0.84rem;margin:0 auto 0.3rem;}
+.imgCode_box input{width:4.8rem;height:0.8rem;line-height:0.8rem;font-size:0.3rem;display: block;margin:0 auto 0.3rem;border:none;border:0;background:#f4f4f4;border-radius:0.20rem;text-align: center;}
+.confir_imgCode{display: block;margin:0 auto;width:5.04rem;height:1.04rem;line-height:0.98rem;text-align: center;color:#fff;background:url(../images/btn_04@2x.png) no-repeat center;background-size: 100%;border:none;}
+.cancel_imgCode{display: block;width:0.68rem;height:0.68rem;margin:0.6rem auto 0;background:url(../images/icon_close@2x.png) no-repeat center;background-size: 100% 100%;}
+
