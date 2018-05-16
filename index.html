@@ -77,8 +77,8 @@
 					headers: {
 						"Content-Type": "application/json; charset=utf-8"
 					},
-//					url: 'http://192.168.10.107:8081/web/users/sendH5SmsCode',
-					 url: 'http://tishoy.com/web/users/sendH5SmsCode',
+					//					url: 'http://192.168.10.107:8081/web/users/sendH5SmsCode',
+					url: 'http://tishoy.com/web/users/sendH5SmsCode',
 					data: JSON.stringify({ 'mobile': $phonenum.val() + "", 'imgCode': $imgcode.val() + "", "imgKey": window.imageKey }),
 					dataType: 'text',
 					success: function (data) {
@@ -106,6 +106,8 @@
 							}, 1000);
 						} else if (json.code == '0' && json.data.smsKey == '-100') {
 							getErrorText('您的手机号已注册');
+						} else if (json.code == '1002') {
+							getErrorText('您的手机号已注册');
 						} else {
 							//验证不通过 吐词
 							getErrorText('验证失败');
@@ -127,8 +129,8 @@
 						headers: {
 							"Content-Type": "application/json; charset=utf-8"
 						},
-//						url: 'http://192.168.10.107:8081/web/users/register',
-						 url: 'http://tishoy.com/web/users/register',
+						//						url: 'http://192.168.10.107:8081/web/users/register',
+						url: 'http://tishoy.com/web/users/register',
 						data: JSON.stringify({ 'mobile': $phonenum.val(), 'code': $code.val(), 'codeKey': window.smsKey, "channel": "3" }),
 						dataType: 'text',
 						success: function (data) {
@@ -181,8 +183,8 @@
 			//刷新更换图片验证码操作
 			$.ajax({
 				type: "post",
-//				url: 'http://192.168.10.107:8081/web/users/randomImage',
-				 url: 'http://tishoy.com/web/users/randomImage',
+				//				url: 'http://192.168.10.107:8081/web/users/randomImage',
+				url: 'http://tishoy.com/web/users/randomImage',
 				// data: { 'phonenum': $phonenum.val(), 'image_code': $imgcode.val() },
 				dataType: 'json',
 				success: function (json) {
